@@ -1,0 +1,36 @@
+PSEUDO-CODE:
+
+Game has two scope logic: global and local.
+Global scope spans a whole game. It has higher priority than local scope, which
+means if something happens to the global scope is should be stored and used as a income data for local events.
+Local scope describes a mechanic of the game and lives inside of the class.
+
+Global elements:
+  - buttons(all hover infected):
+    level:
+      - not active - version 1;
+      - shows the drop down menu - version 2;
+      - change a level of the game when pressed on particular submenu - version 2;
+    gallery:
+      - not active - version 1;
+      - shows the drop down menu - version 2;
+      - shows the topic of the board on a playground when pressed - version 2;
+      - change the topic of the game when pressed on particular submenu - version 2;
+    instructions:
+       -
+
+  - main menu;
+  -
+
+
+
+
+
+Inside: environement based on class - to store the logic of the game.
+Outside: listeners for key objects of the game
+
+
+Create basic with method describing the  Class Game
+Class
+
+
