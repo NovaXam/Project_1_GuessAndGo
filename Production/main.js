@@ -48,22 +48,20 @@
 //         assignValue(isBoolStep, isBoolScore, value);
 //       }
 //     }
-var arrayOfPictures = ['url(graph/animals/cat.png)','url(graph/animals/cow.png)','url(graph/animals/cowBrown.png)','url(graph/animals/dog.png)','url(graph/animals/duck.png)','url(graph/animals/duckChild.png)','url(graph/animals/elephan.png)','url(graph/animals/smallDuck.png)'];
-var arrayOfTopics = ['graph/animals/main.png','graph/mario/mushrooms.png','graph/sh/main.png','graph/sw/main.png'];
+const arrayOfPictures = ['url(graph/animals/cat.png)','url(graph/animals/cow.png)','url(graph/animals/cowBrown.png)','url(graph/animals/dog.png)','url(graph/animals/duck.png)','url(graph/animals/duckChild.png)','url(graph/animals/elephan.png)','url(graph/animals/smallDuck.png)'];
+const arrayOfTopics = ['graph/animals/main.png','graph/mario/mushrooms.png','graph/sh/main.png','graph/sw/main.png'];
 var isStartOrReset = false;
-var redCross = '#';
-var emptyCell = '#';
-var arrayOfIndex = [];
+const questionMark = 'url(graph/questionMark.png)';
+const winnerCup = 'url(graph/winnerCup.png)';
+const looserCup = 'url(graph/looserCup.png)';
+let arrayOfIndex = [];
+let stepFlag = 1;
+let progressFlag = 1;
 let num = 3;
-
 
 class Game {
   constructor() {
-    this.stepFlag = 0;
-    this.progressFlag = 0;
     this.interFun = 0;
-    this.isBoolStep = true;
-    this.isBoolScore = true;
   }
 //it works. tested. + checked for double numbers;
   buildBoard(arr1) {
@@ -117,61 +115,117 @@ class Game {
     )}
   };
 
-
-assignValue(isBool1, isBool2, valueEl, el, arr1, arr2, cross) {
-  if(isisBoolStep && isBoolScore && valueEl === " ") {
-            $.each(arr1, function(ind, item) {
-            if($(el).attr('id') === item) {
-              $(el).css("background", "lightgreen");
-              $(el).css("background-image", arr2[ind]);
-              $(el).css("background-repeat", 'no-repeat');
-              $(el).text('1');
-              this.stepFlag++;
-              this.progressFlag++;
-       } else {
-              $(el).css("background", "lightgreen");
-         // $.each(arr1, function(ind, item) {
-              $(el).css("background-image", cross);
-              $(el).css("background-repeat", 'no-repeat');
-              $(el).text('0');
-              this.stepFlag++;
-        }
-      });
-    }
-  }
-//if both of the argument is true and DOM value is equal " ", assing a new background-color value to the cluster with
-// appropriate id number. If this number is into an arrayOfIndex assign the topicPctur from arrayPicture and assign DOM value
-// like 1. If there is no such a value of the index into arrayOfIndex, assign a new background-color as
-// redCross and assign the DOM value as 0. If the DOM value is 1 increament local variables stepFlag and progressFlag.
+//if a cluster wasn't clicked(DOM value is equal ""), assing a new background-color value to the cluster with
+// appropriate id number. If this number is into an arrayOfIndex assign the background-color from arrayPicture and assign
+//DOM value like 1. If there is no such a value of the index into an arrayOfIndex, assign a new background-color as
+// questionMark and assign the DOM value as 0. If the DOM value is 1 increament local variables stepFlag and progressFlag.
 // If value is 0, increament only stepFlag.
+  listener() {
+    $('.square').on('click', function(event) {
+      let cluster = this;
+      if(stepFlag < 12 && progressFlag < 8) {
+           if($(cluster).text() == "") {
+            if(arrayOfIndex.indexOf(parseInt($(cluster).attr('id'))) > -1) {
+              $(cluster).css("background", "lightgreen");
+              $(cluster).css("background-image", arrayOfPictures[arrayOfIndex.indexOf(parseInt($(cluster).attr('id')))]);
+              $(cluster).css("background-repeat", 'no-repeat');
+              $(cluster).text('1');
+              console.log("progress: " + progressFlag + " and " + "steps: " + stepFlag);
+              stepFlag++;
+              progressFlag++;
+            } else {
+              $(cluster).css("background", "lightgreen");
+              $(cluster).css("background-image", questionMark);
+              $(cluster).css("background-size", '100%');
+              $(cluster).css("background-repeat", 'no-repeat');
+              $(cluster).text('0');
+              console.log("steps: " + stepFlag);
+              stepFlag++;
+            }
+          };
+      } else if(stepFlag >= 12 && progressFlag < 8) {
+              $('.Winner_Looser').css('visibility', 'visible');
+              $('.Winner_Looser').children('span').remove();
+              $('.wl').css('display', 'inline-block');
+              $('#stat').text(`steps : ${stepFlag}, progress : ${progressFlag}`);
+              $('#cup').css('background-image', looserCup);
+              $('#cup').css("background-size", '40%');
+              $('#cup').css("background-repeat", 'no-repeat');
+              $('#cup').css("background-position", 'center');
+              $('#text').text('TRY HARDER');
+      } else if(stepFlag < 12 && progressFlag === 8) {
+              $('.Winner_Looser').css('visibility', 'visible');
+              $('.Winner_Looser').children('span').remove();
+              $('.wl').css('display', 'inline-block');
+              $('#stat').text(`steps : ${stepFlag}, progress : ${progressFlag}`);
+              $('#cup').css('background-image', winnerCup);
+              $('#cup').css("background-size", '40%');
+              $('#cup').css("background-repeat", 'no-repeat');
+              $('#cup').css("background-position", 'center');
+              $('#text').text('WINNER');
+              $('#text').css("font-size", '120px');
+          }
+      });
+  };
 
+  // openClust() {
+  // $('.square').on('click', function(event) {
+  //       let that = this;
+  //        if($(cluster).text() == "") {
+  //         if(arrayOfIndex.indexOf(parseInt($(that).attr('id'))) > -1) {
+  //             $(cluster).css("background", "lightgreen");
+  //             $(cluster).css("background-image", arrayOfPictures[arrayOfIndex.indexOf(parseInt($(that).attr('id')))]);
+  //             $(cluster).css("background-repeat", 'no-repeat');
+  //             $(cluster).text('1');
+  //             console.log("progress: " + progressFlag + " and " + "steps: " + stepFlag);
+  //             stepFlag++;
+  //             progressFlag++;
+  //           } else {
+  //             $(cluster).css("background", "lightgreen");
+  //             $(cluster).css("background-image", questionMark);
+  //             $(cluster).css("background-size", '100%');
+  //             $(cluster).css("background-repeat", 'no-repeat');
+  //             $(cluster).text('0');
+  //             console.log("steps: " + stepFlag);
+  //             stepFlag++;
+  //           }
+  //         }
+  //     // });
+  // };
 
+  // looser() {
+  //     $('.Winner_Looser').css('visibility', 'visible');
+  //     $('.Winner_Looser').children('span').remove();
+  //     $('.wl').css('display', 'inline-block');
+  //     $('#stat').css({'background-color':'rgba(10,10,10,0.4)', 'color':'white', 'font-size':'30px', 'font-family':'Quicksand'});
+  //     $('#stat').text(`Steps : ${stepFlag}, progress : ${progressFlag}`);
+  //     $('#cup').css('background-image', looserCup);
+  //     $('#text').text('TRY HARDER');
+  //   };
 
-$('.square').click( => {
-
-});
-
-
-//start playing game and assign the game flow logic
+  // winner() {
+  //     $('.Winner_Looser').css('visibility', 'visible');
+  //     $('.Winner_Looser').children('span').remove();
+  //     $('.wl').css('display', 'inline-block');
+  //     $('#stat').css({'background-color':'rgba(10,10,10,0.4)', 'color':'white', 'font-size':'30px', 'font-family':'Quicksand'});
+  //     $('#stat').text(`Steps : ${stepFlag}, progress : ${progressFlag}`);
+  //     $('#cup').css('background-image', winnerCup);
+  //     $('#text').text('WINNER');
+  //   };
+//start playing game and assign the game flow logic.
   start() {
       this.buildBoard(arrayOfIndex);
       this.revealBoard(arrayOfIndex, arrayOfPictures);
       this.countDown();
-      // setInterval(this.resetBoard(isStartOrReset, '.square'), 3000);
+      this.listener();
     }
-};
-
-
+  };
 
 $('button').on('click', (event) => {
     const newGame = new Game();
     $('#start').text('RESET');
     isStartOrReset = true;
     newGame.start();
-
-
-
-
 });
 
 

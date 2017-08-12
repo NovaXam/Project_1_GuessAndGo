@@ -166,6 +166,7 @@ section {
   border-radius: 5px;
   -webkit-box-shadow: 2px 2px 3px rgba(255,255,255,0.8) inset, 1px 2px 3px rgba(0,0,0,0.2);
   background-color: #EFE15E;
+  color: transparent;
 }
 .Winner_Looser {
   position: absolute;
@@ -188,8 +189,15 @@ section {
   left: 40px;
   height: 100px;
   width: 500px;
-  border: 1px solid black;
+  border-radius: 10px;
+  /*border: 1px solid black;*/
   margin: 0 auto;
+  color: white;
+  font-size: 50px;
+  font-weight: 800;
+  font-family: Quicksand;
+  background-color: rgba(255,255,255,0.2);
+  text-align: center;
 }
 #cup {
   position: absolute;
@@ -197,8 +205,9 @@ section {
   left: 40px;
   height: 200px;
   width: 500px;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
   margin: 0 auto;
+  text-align: center;
 }
 #text {
   position: absolute;
@@ -206,8 +215,16 @@ section {
   left: 40px;
   height: 200px;
   width: 500px;
-  border: 1px solid black;
+  color: white;
+  /*border: 1px solid black;*/
+  border-radius: 10px;
   margin: 0 auto;
+  text-align: center;
+  color: white;
+  font-size: 80px;
+  font-weight: 800;
+  font-family: Quicksand;
+  background-color: rgba(255,255,255,0.2);
 }
 .leftNav {
   display: block;
