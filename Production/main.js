@@ -58,6 +58,7 @@ let arrayOfIndex = [];
 let stepFlag = 1;
 let progressFlag = 1;
 let num = 3;
+let score = 0;
 
 class Game {
   constructor() {
@@ -130,19 +131,25 @@ class Game {
               $(cluster).css("background-image", arrayOfPictures[arrayOfIndex.indexOf(parseInt($(cluster).attr('id')))]);
               $(cluster).css("background-repeat", 'no-repeat');
               $(cluster).text('1');
-              console.log("progress: " + progressFlag + " and " + "steps: " + stepFlag);
               stepFlag++;
               progressFlag++;
+                if(progressFlag === stepFlag) {
+                  score += 120;
+                } else score += 120-((stepFlag - progressFlag)*10);
             } else {
               $(cluster).css("background", "lightgreen");
               $(cluster).css("background-image", questionMark);
               $(cluster).css("background-size", '100%');
               $(cluster).css("background-repeat", 'no-repeat');
               $(cluster).text('0');
-              console.log("steps: " + stepFlag);
               stepFlag++;
             }
           };
+          $('#progress').text(`0 / ${progressFlag}`)
+          $('#score').text(`${score}`);
+          $('#steps').text(`${stepFlag}`);
+
+
       } else if(stepFlag >= 12 && progressFlag < 8) {
               $('.Winner_Looser').css('visibility', 'visible');
               $('.Winner_Looser').children('span').remove();
@@ -153,6 +160,8 @@ class Game {
               $('#cup').css("background-repeat", 'no-repeat');
               $('#cup').css("background-position", 'center');
               $('#text').text('TRY HARDER');
+              stepFlag = 0;
+              progressFlag = 0;
       } else if(stepFlag < 12 && progressFlag === 8) {
               $('.Winner_Looser').css('visibility', 'visible');
               $('.Winner_Looser').children('span').remove();
@@ -164,54 +173,12 @@ class Game {
               $('#cup').css("background-position", 'center');
               $('#text').text('WINNER');
               $('#text').css("font-size", '120px');
+              stepFlag = 0;
+              progressFlag = 0;
           }
       });
   };
 
-  // openClust() {
-  // $('.square').on('click', function(event) {
-  //       let that = this;
-  //        if($(cluster).text() == "") {
-  //         if(arrayOfIndex.indexOf(parseInt($(that).attr('id'))) > -1) {
-  //             $(cluster).css("background", "lightgreen");
-  //             $(cluster).css("background-image", arrayOfPictures[arrayOfIndex.indexOf(parseInt($(that).attr('id')))]);
-  //             $(cluster).css("background-repeat", 'no-repeat');
-  //             $(cluster).text('1');
-  //             console.log("progress: " + progressFlag + " and " + "steps: " + stepFlag);
-  //             stepFlag++;
-  //             progressFlag++;
-  //           } else {
-  //             $(cluster).css("background", "lightgreen");
-  //             $(cluster).css("background-image", questionMark);
-  //             $(cluster).css("background-size", '100%');
-  //             $(cluster).css("background-repeat", 'no-repeat');
-  //             $(cluster).text('0');
-  //             console.log("steps: " + stepFlag);
-  //             stepFlag++;
-  //           }
-  //         }
-  //     // });
-  // };
-
-  // looser() {
-  //     $('.Winner_Looser').css('visibility', 'visible');
-  //     $('.Winner_Looser').children('span').remove();
-  //     $('.wl').css('display', 'inline-block');
-  //     $('#stat').css({'background-color':'rgba(10,10,10,0.4)', 'color':'white', 'font-size':'30px', 'font-family':'Quicksand'});
-  //     $('#stat').text(`Steps : ${stepFlag}, progress : ${progressFlag}`);
-  //     $('#cup').css('background-image', looserCup);
-  //     $('#text').text('TRY HARDER');
-  //   };
-
-  // winner() {
-  //     $('.Winner_Looser').css('visibility', 'visible');
-  //     $('.Winner_Looser').children('span').remove();
-  //     $('.wl').css('display', 'inline-block');
-  //     $('#stat').css({'background-color':'rgba(10,10,10,0.4)', 'color':'white', 'font-size':'30px', 'font-family':'Quicksand'});
-  //     $('#stat').text(`Steps : ${stepFlag}, progress : ${progressFlag}`);
-  //     $('#cup').css('background-image', winnerCup);
-  //     $('#text').text('WINNER');
-  //   };
 //start playing game and assign the game flow logic.
   start() {
       this.buildBoard(arrayOfIndex);
@@ -222,10 +189,15 @@ class Game {
   };
 
 $('button').on('click', (event) => {
-    const newGame = new Game();
-    $('#start').text('RESET');
-    isStartOrReset = true;
-    newGame.start();
+    if(!isStartOrReset) {
+      $('#start').text('RESET')
+      let newGame = new Game();
+      isStartOrReset = !isStartOrReset;
+      newGame.start();
+    } else {
+     $('#start').text('PLAY');
+      location.reload();
+  }
 });
 
 
