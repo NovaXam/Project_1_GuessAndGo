@@ -37,19 +37,27 @@ Global context:
 Data:
   - arrayOfPictures - 2-dimensional array of pictures: first level of array is index, second is the pictures. On a second dimension is always main picture and the rest of 8 are cluster's icons - version 2;
   - arrayOfIndex - container to store randomly generated index.
-  - arrayOfPictures - 1-dimensional arrayPic of pictures - version 1;
+  - arrayOfPictures - 1-dimensiona of pictures - version 1;
+  - arrayOfTopics - 1-dimensional of topic pictures - version 1;
   - Global flag isStartOrReset - used to check the statue of the start/reset button;
   - Redcross wrong choice picture;
   - Empty cell picture;
 Methods:
-  EventListerner for start/reset button. When it clicked create a new Object(newGame) of class Game with parameters array of pictures and empty array.
-                    Call the method launch the newGame.launch() with triggers the game flow;
+   EventListerner for start/reset button. When it clicked create a new Object(newGame) of class Game with parameters array of pictures and empty array.
+                    Call the method launch the newGame.start() with triggers the game flow;
                     Change the value of Start button for Reset button and id from "start" to "reset";
-  - timer(time) - stop the program flow for "time" second. Argument gets from parent method which calls it.
-  - launchTimer(num) - create modal window and shows on it digits from time to 0 with interval of 1 second. To manage the
-                    time use timer method inside of the loop. Return true. As an argument accepts number(time in seconds).
+  timer(time) - stop the program flow for "time" second. Argument gets from parent method which calls it.
+  launchTimer(num) - create modal window and shows on it digits from time to 0 with interval of 1 second. To manage the
+                     time use timer method inside of the loop. Return true. As an argument accepts number(time in seconds).
+  makeInvisible(DOM class) - assign a property visibility: hidden to all DOM elements on the page which class is equal to parameter.
+  creatTopicBoard(DOM class, DOM class) - call makeInvisible(DOM class) for "square" class, and assign visibility: visible for 'gal' class.
+                                          All elements of the class "gal" are assigned on the fly by new backbround-color property
+                                          according to their ids by the image from arrayOfTopics.
+  EventListener for main menu
+            creatTopicBoard(event.target.id) - need to be done later after version 1 will be working.
 
 
+Local object context:
 
 Object structure:
   constructor() - empty for the version 1;
@@ -78,7 +86,7 @@ Object structure:
         assignValue(isBoolStep, isBoolScore);
 
 
-    startGame(isStartOrReset) {
+    start(isStartOrReset) {
       if(isStartReset) {
         buildBoard();
         revealBoard(arrayOfPictures);
@@ -87,4 +95,3 @@ Object structure:
         assignValue(isBoolStep, isBoolScore, value);
       }
     }
-

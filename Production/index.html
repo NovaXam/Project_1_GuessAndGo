@@ -2,8 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>MemroryFlexGame</title>
+  <title>GessAndGo</title>
   <link rel="stylesheet" href="style.css">
+  <!-- <script src="main.js" type="text/javascript"></script> -->
+  <script
+  src="http://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css?family=Dosis|Quicksand" rel="stylesheet">
 </head>
 <body>
@@ -16,7 +21,7 @@
         <div class="but"><a href="#">History</a></div>
        </div>
      </div>
-     <div id="gName">NAME OF THE GAME</div>
+     <div id="gName">ANIMALS</div>
    </header>
    <div class="middle">
      <section class="AchBoard">
@@ -40,6 +45,7 @@
           <div class="gal" id="g4"></div>
         </div>
         <div class="clusters">
+          <div class="square" id="0"></div>
           <div class="square" id="1"></div>
           <div class="square" id="2"></div>
           <div class="square" id="3"></div>
@@ -55,7 +61,6 @@
           <div class="square" id="13"></div>
           <div class="square" id="14"></div>
           <div class="square" id="15"></div>
-          <div class="square" id="16"></div>
         </div>
         <div class="Winner_Looser">
           <div class="wl" id="stat"></div>
@@ -65,7 +70,7 @@
       </div>
     </main>
     <aside class="leftNav">
-      <button id="start">START</button>
+      <button id="start">PLAY</button>
       <div id="tips">
         <h2>TIPS OF THE DAY</h2>
         <p>Be more careful when make a choice</p>
@@ -73,5 +78,7 @@
       </div>
     </aside>
   </div>
+<script src="main.js" type="text/javascript"></script>
+<!-- <script src="global.js" type="text/javascript"></script> -->
 </body>
 </html>
