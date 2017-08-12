@@ -25,7 +25,8 @@
 //     launchTimer(num);
 //     resetBoard(isBool) - triggered just right after the Reset button(start button with id='reset') is clicked or timer is run out(launchTimer(num) return value true). Turn all clusters
 //                    face off on the board (assing them initial background-color value #EFE15E);
-//     assignValue(isBoolStep, isBoolScore, value) - if both of the argument is true and DOM value is equal " ", assing a new background-color value to the cluster with appropriate id number. If this number is into an arrayOfIndex assign the topicPcture
+//     assignValue(isBoolStep, isBoolScore, value) - if both of the argument is true and DOM value is equal " ", assing a new background-color value to the cluster with appropriate id number.
+                                             //If this number is into an arrayOfIndex assign the topicPcture
 //                                           from arrayPicture and assign DOM value like 1. If there is no such a value of the index into arrayOfIndex, assign a new background-color as
 //                                           redCross and assign the DOM value as 0. If the DOM value is 1 increament local variables stepFlag and progressFlag. If value is 0,
 //                                           increament only stepFlag.
@@ -61,6 +62,8 @@ class Game {
     this.stepFlag = 0;
     this.progressFlag = 0;
     this.interFun = 0;
+    this.isBoolStep = true;
+    this.isBoolScore = true;
   }
 //it works. tested. + checked for double numbers;
   buildBoard(arr1) {
@@ -84,7 +87,8 @@ class Game {
           });
       });
     };
-//found a solution with setInterval in stackoverflow.com
+//found a solution with setInterval in stackoverflow.com and extended it for my function. it works. tested.
+//build a modal window and nests a countdown timer in here as well reset the gameboard for it initial value.
   countDown () {
     function launchTimer() {
     if(num == 3) {
@@ -112,10 +116,43 @@ class Game {
        }
     )}
   };
-      // triggered just right after the Reset button(start button with id='reset') is clicked or timer
-      // is run out(launchTimer(num) return value true). Turn all clusters
-//                    face off on the board (assing them initial background-color value #EFE15E);
 
+
+assignValue(isBool1, isBool2, valueEl, el, arr1, arr2, cross) {
+  if(isisBoolStep && isBoolScore && valueEl === " ") {
+            $.each(arr1, function(ind, item) {
+            if($(el).attr('id') === item) {
+              $(el).css("background", "lightgreen");
+              $(el).css("background-image", arr2[ind]);
+              $(el).css("background-repeat", 'no-repeat');
+              $(el).text('1');
+              this.stepFlag++;
+              this.progressFlag++;
+       } else {
+              $(el).css("background", "lightgreen");
+         // $.each(arr1, function(ind, item) {
+              $(el).css("background-image", cross);
+              $(el).css("background-repeat", 'no-repeat');
+              $(el).text('0');
+              this.stepFlag++;
+        }
+      });
+    }
+  }
+//if both of the argument is true and DOM value is equal " ", assing a new background-color value to the cluster with
+// appropriate id number. If this number is into an arrayOfIndex assign the topicPctur from arrayPicture and assign DOM value
+// like 1. If there is no such a value of the index into arrayOfIndex, assign a new background-color as
+// redCross and assign the DOM value as 0. If the DOM value is 1 increament local variables stepFlag and progressFlag.
+// If value is 0, increament only stepFlag.
+
+
+
+$('.square').click( => {
+
+});
+
+
+//start playing game and assign the game flow logic
   start() {
       this.buildBoard(arrayOfIndex);
       this.revealBoard(arrayOfIndex, arrayOfPictures);
