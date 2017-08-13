@@ -50,9 +50,9 @@
 //     }
 const arrayOfAnimals = ['url(graph/animals/cat.png)','url(graph/animals/cow.png)','url(graph/animals/cowBrown.png)','url(graph/animals/dog.png)','url(graph/animals/duck.png)','url(graph/animals/duckChild.png)','url(graph/animals/elephan.png)','url(graph/animals/smallDuck.png)'];
 const arrayOfMario = ['url(graph/mario/bananas.png)','url(graph/mario/flower.png)','url(graph/mario/medal.png)','url(graph/mario/star.png)','url(graph/mario/mushrooms.png)','url(graph/mario/tortles.png)','url(graph/mario/bubble.png)','url(graph/mario/mush.png)'];
-const arrayOfStar = ['url(graph/sw/craft.png)','url(graph/sw/D2R2.png)','url(graph/sw/DWHelmet.png)','url(graph/sw/helmet.png)','url(graph/sw/impireShip.png)','url(graph/sw/spaceShip.png)','url(graph/sw/starShip.png)'];
+const arrayOfStar = ['url(graph/sw/craft.png)','url(graph/sw/D2R2.png)','url(graph/sw/DWHelmet.png)','url(graph/sw/helmet.png)','url(graph/sw/impireShip.png)','url(graph/sw/spaceShip.png)','url(graph/sw/starShip.png)', 'url(graph/sw/shipShip.png)'];
 const arrayOfHeroes = ['url(graph/sh/1.png)','url(graph/sh/2.png)','url(graph/sh/3.png)','url(graph/sh/4.png)','url(graph/sh/5.png)','url(graph/sh/6.png)','url(graph/sh/7.png)','url(graph/sh/8.png)'];
-const arrayOfTopics = ['url(graph/animals/main.png)','url(graph/mario/mushrooms.png)','url(graph/sh/main.png)','url(graph/sw/main.png)'];
+const arrayOfTopics = ['url(graph/animals/main.png)','url(graph/mario/main.png)','url(graph/sh/main.png)','url(graph/sw/main.png)'];
 var isStartOrReset = false;
 const questionMark = 'url(graph/questionMark.png)';
 const winnerCup = 'url(graph/winnerCup.png)';
@@ -63,10 +63,12 @@ let progressFlag = 0;
 let num = 3;
 let score = 0;
 let gameTop = '';
+let timerOut = false;
 
 class Game {
   constructor() {
     this.interFun = 0;
+    this.timer
   }
 //it works. tested. + checked for double numbers;
   buildBoard(arr1) {
@@ -79,8 +81,13 @@ class Game {
     };
 //it works. tested.
   revealBoard(arr1) {
-      if(gameTop === '') gameTop = arrayOfAnimals;
-      $('.square').each(function(index, el) {
+      if(gameTop === '') {
+        gameTop = arrayOfAnimals;
+        $('#gName').text('ANIMALS');
+        }
+        $('.clusters').css({'visibility': 'visible', 'z-index': '2'});
+        $('.Gallary').css({'visibility': 'hidden', 'z-index': '1'});
+        $('.square').each(function(index, el) {
          $(el).css("background", "lightgreen");
          $.each(arr1, function(ind, item) {
             if($(el).attr('id') == item) {
@@ -111,7 +118,6 @@ class Game {
         num--;
       }
     };
-
   let interFun = setInterval(function() {launchTimer(num);}, 1000);
 
   function resetBoard(el) {
@@ -120,7 +126,24 @@ class Game {
        }
     )}
   };
-
+ gameTimer(proScore) {
+  function timeChecker() {
+      if (proScore < 8 && sec > 0) {
+        $('#level').text(`00 : ${sec}`);
+        sec--;
+      } else if (sec < 0 && proScore !== 8) {
+        clearInterval(inTimer);
+        timerOut = true;
+      } else if(sec > 0 && proScore === 8){
+        $('#level').text(`00 : ${sec}`);
+        timerOut = true;
+        sec;
+        console.log(sec);
+        }
+    }
+    let sec = 30;
+    let inTimer = setInterval(function() {timeChecker(sec)}, 1000);
+  };
 //if a cluster wasn't clicked(DOM value is equal ""), assing a new background-color value to the cluster with
 // appropriate id number. If this number is into an arrayOfIndex assign the background-color from arrayPicture and assign
 //DOM value like 1. If there is no such a value of the index into an arrayOfIndex, assign a new background-color as
@@ -132,6 +155,15 @@ class Game {
       if(stepFlag < 12 && progressFlag < 8) {
            if($(cluster).text() == "") {
             if(arrayOfIndex.indexOf(parseInt($(cluster).attr('id'))) > -1) {
+
+              // $('.back').css(`{'background-color':'#EFE15E, 'backface-visibility':'hidden', 'z-index':'2', 'transform':'rotateY(0deg)'}`);
+              // $('.front').css(`{'background-color':'lightgreen', 'backface-visibility':'hidden', 'transform':'rotateY(180deg)'}`);
+              // $('.back').css("background", "lightgreen");
+              // $('.back').css("background-image", gameTop[arrayOfIndex.indexOf(parseInt($(cluster).attr('id')))]);
+              // $('.back').css("background-repeat", 'no-repeat');
+              // $(cluster).css('transform', 'rotateY(180deg');
+
+              $(cluster).css('transform', 'rotateY(180deg');
               $(cluster).css("background", "lightgreen");
               $(cluster).css("background-image", gameTop[arrayOfIndex.indexOf(parseInt($(cluster).attr('id')))]);
               $(cluster).css("background-repeat", 'no-repeat');
@@ -142,6 +174,7 @@ class Game {
                   score += 120;
                 } else score += 120-((stepFlag - progressFlag)*10);
             } else {
+              $(cluster).css('transform', 'rotateY(180deg');
               $(cluster).css("background", "lightgreen");
               $(cluster).css("background-image", questionMark);
               $(cluster).css("background-size", '100%');
@@ -153,7 +186,7 @@ class Game {
           $('#progress').children('p').text(`${progressFlag} / 8`);
           $('#score').children('p').text(`${score}`);
           $('#steps').children('p').text(`${stepFlag}`);
-
+          $('#time').children('p').text('1');
 
       } else if(stepFlag >= 12 && progressFlag < 8) {
               $('.Winner_Looser').css('visibility', 'visible');
@@ -167,7 +200,7 @@ class Game {
               $('#text').text('TRY HARDER');
               stepFlag = 0;
               progressFlag = 0;
-      } else if(stepFlag < 12 && progressFlag == 8) {
+      } else if(stepFlag <= 12 && progressFlag == 8) {
               $('.Winner_Looser').css('visibility', 'visible');
               $('.Winner_Looser').children('span').remove();
               $('.wl').css('display', 'inline-block');
@@ -182,6 +215,7 @@ class Game {
               progressFlag = 0;
           }
       });
+    this.gameTimer(progressFlag);
   };
 
 //start playing game and assign the game flow logic.
@@ -189,7 +223,8 @@ class Game {
       this.buildBoard(arrayOfIndex);
       this.revealBoard(arrayOfIndex, gameTop);
       this.countDown();
-      this.listener();
+      // this.gameTimer(progressFlag);
+      this.listener(timerOut);
     }
   };
 
@@ -208,10 +243,10 @@ $('button').on('click', (event) => {
 $('#gall').on('click', (event) => {
     $('.clusters').css({'visibility': 'hidden', 'z-index': '1'});
     $('.Gallary').css({'visibility': 'visible', 'z-index': '2'});
-    $('#g1').css({'background-image': arrayOfTopics[0], 'background-size': '100%', 'background-repeat':'no-repeat'});
-    $('#g2').css({'background-image': arrayOfTopics[1], 'background-size': '100%', 'background-repeat':'no-repeat'});
-    $('#g3').css({'background-image': arrayOfTopics[2], 'background-size': '100%', 'background-repeat':'no-repeat'});
-    $('#g4').css({'background-image': arrayOfTopics[3], 'background-size': '100%', 'background-repeat':'no-repeat'});
+    $('#g1').css({'background': 'lightgreen', 'background-image': arrayOfTopics[0], 'background-size': '100%', 'background-repeat':'no-repeat'});
+    $('#g2').css({'background': 'lightgreen', 'background-image': arrayOfTopics[1], 'background-size': '100%', 'background-repeat':'no-repeat'});
+    $('#g3').css({'background': 'lightgreen', 'background-image': arrayOfTopics[2], 'background-size': '100%', 'background-repeat':'no-repeat'});
+    $('#g4').css({'background': 'lightgreen', 'background-image': arrayOfTopics[3], 'background-size': '100%', 'background-repeat':'no-repeat'});
 
 $('.gal').on('click', function(event) {
   if($(this).attr('id') == 'g1') {

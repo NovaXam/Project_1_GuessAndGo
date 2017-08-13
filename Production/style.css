@@ -137,7 +137,7 @@ section {
   /*border: 1px solid black;*/
 }
 .Gallary {
-  display: none;
+  /*display: none;*/
   position: absolute;
   top: -14px;
   left: 0px;
@@ -146,7 +146,7 @@ section {
   flex-wrap: wrap;
   justify-content: center;
   z-index: 1;
-  /*visibility: hidden;*/
+  visibility: hidden;
 }
 .gal {
   border: 1px solid black;
@@ -176,6 +176,9 @@ section {
   -webkit-box-shadow: 3px 3px 4px rgba(255,255,255,0.8) inset, 3px 3px 4px rgba(0,0,0,0.2);
   background-color: #EFE15E;
   color: transparent;
+  perspective: 1000px;
+  transition: 0.6s;
+  transform-style: preserve-3d;
 }
 .Winner_Looser {
   position: absolute;
