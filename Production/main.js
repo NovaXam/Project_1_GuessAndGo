@@ -48,17 +48,21 @@
 //         assignValue(isBoolStep, isBoolScore, value);
 //       }
 //     }
-const arrayOfPictures = ['url(graph/animals/cat.png)','url(graph/animals/cow.png)','url(graph/animals/cowBrown.png)','url(graph/animals/dog.png)','url(graph/animals/duck.png)','url(graph/animals/duckChild.png)','url(graph/animals/elephan.png)','url(graph/animals/smallDuck.png)'];
-const arrayOfTopics = ['graph/animals/main.png','graph/mario/mushrooms.png','graph/sh/main.png','graph/sw/main.png'];
+const arrayOfAnimals = ['url(graph/animals/cat.png)','url(graph/animals/cow.png)','url(graph/animals/cowBrown.png)','url(graph/animals/dog.png)','url(graph/animals/duck.png)','url(graph/animals/duckChild.png)','url(graph/animals/elephan.png)','url(graph/animals/smallDuck.png)'];
+const arrayOfMario = ['url(graph/mario/bananas.png)','url(graph/mario/flower.png)','url(graph/mario/medal.png)','url(graph/mario/star.png)','url(graph/mario/mushrooms.png)','url(graph/mario/tortles.png)','url(graph/mario/bubble.png)','url(graph/mario/mush.png)'];
+const arrayOfStar = ['url(graph/sw/craft.png)','url(graph/sw/D2R2.png)','url(graph/sw/DWHelmet.png)','url(graph/sw/helmet.png)','url(graph/sw/impireShip.png)','url(graph/sw/spaceShip.png)','url(graph/sw/starShip.png)'];
+const arrayOfHeroes = ['url(graph/sh/1.png)','url(graph/sh/2.png)','url(graph/sh/3.png)','url(graph/sh/4.png)','url(graph/sh/5.png)','url(graph/sh/6.png)','url(graph/sh/7.png)','url(graph/sh/8.png)'];
+const arrayOfTopics = ['url(graph/animals/main.png)','url(graph/mario/mushrooms.png)','url(graph/sh/main.png)','url(graph/sw/main.png)'];
 var isStartOrReset = false;
 const questionMark = 'url(graph/questionMark.png)';
 const winnerCup = 'url(graph/winnerCup.png)';
 const looserCup = 'url(graph/looserCup.png)';
 let arrayOfIndex = [];
-let stepFlag = 1;
-let progressFlag = 1;
+let stepFlag = 0;
+let progressFlag = 0;
 let num = 3;
 let score = 0;
+let gameTop = '';
 
 class Game {
   constructor() {
@@ -74,13 +78,14 @@ class Game {
       }
     };
 //it works. tested.
-  revealBoard(arr1, arr2) {
+  revealBoard(arr1, gameTop) {
+      if(gameTop === '') gameTop = arrayOfAnimals;
       $('.square').each(function(index, el) {
          $(el).css("background", "lightgreen");
          $.each(arr1, function(ind, item) {
             if($(el).attr('id') == item) {
                 $(el).css("background", "lightgreen");
-                $(el).css("background-image", arr2[ind]);
+                $(el).css("background-image", gameTop[ind]);
                 $(el).css("background-repeat", 'no-repeat');
             }
           });
@@ -128,7 +133,7 @@ class Game {
            if($(cluster).text() == "") {
             if(arrayOfIndex.indexOf(parseInt($(cluster).attr('id'))) > -1) {
               $(cluster).css("background", "lightgreen");
-              $(cluster).css("background-image", arrayOfPictures[arrayOfIndex.indexOf(parseInt($(cluster).attr('id')))]);
+              $(cluster).css("background-image", gameTop[arrayOfIndex.indexOf(parseInt($(cluster).attr('id')))]);
               $(cluster).css("background-repeat", 'no-repeat');
               $(cluster).text('1');
               stepFlag++;
@@ -145,30 +150,30 @@ class Game {
               stepFlag++;
             }
           };
-          $('#progress').text(`0 / ${progressFlag}`)
-          $('#score').text(`${score}`);
-          $('#steps').text(`${stepFlag}`);
+          $('#progress').children('p').text(`${progressFlag} / 8`);
+          $('#score').children('p').text(`${score}`);
+          $('#steps').children('p').text(`${stepFlag}`);
 
 
       } else if(stepFlag >= 12 && progressFlag < 8) {
               $('.Winner_Looser').css('visibility', 'visible');
               $('.Winner_Looser').children('span').remove();
               $('.wl').css('display', 'inline-block');
-              $('#stat').text(`steps : ${stepFlag}, progress : ${progressFlag}`);
+              $('#stat').text(`steps ${stepFlag} : progress ${progressFlag} score ${score}`);
               $('#cup').css('background-image', looserCup);
-              $('#cup').css("background-size", '40%');
+              $('#cup').css("background-size", '60%');
               $('#cup').css("background-repeat", 'no-repeat');
               $('#cup').css("background-position", 'center');
               $('#text').text('TRY HARDER');
               stepFlag = 0;
               progressFlag = 0;
-      } else if(stepFlag < 12 && progressFlag === 8) {
+      } else if(stepFlag < 12 && progressFlag == 8) {
               $('.Winner_Looser').css('visibility', 'visible');
               $('.Winner_Looser').children('span').remove();
               $('.wl').css('display', 'inline-block');
-              $('#stat').text(`steps : ${stepFlag}, progress : ${progressFlag}`);
+              $('#stat').text(`steps ${stepFlag} : progress ${progressFlag} score ${score}`);
               $('#cup').css('background-image', winnerCup);
-              $('#cup').css("background-size", '40%');
+              $('#cup').css("background-size", '65%');
               $('#cup').css("background-repeat", 'no-repeat');
               $('#cup').css("background-position", 'center');
               $('#text').text('WINNER');
@@ -182,7 +187,7 @@ class Game {
 //start playing game and assign the game flow logic.
   start() {
       this.buildBoard(arrayOfIndex);
-      this.revealBoard(arrayOfIndex, arrayOfPictures);
+      this.revealBoard(arrayOfIndex, gameTop);
       this.countDown();
       this.listener();
     }
@@ -200,9 +205,31 @@ $('button').on('click', (event) => {
   }
 });
 
+$('#gall').on('click', (event) => {
+    $('.clusters').css({'visibility': 'hidden', 'z-index': '1'});
+    $('.Gallary').css({'visibility': 'visible', 'z-index': '2'});
+    $('#g1').css({'background-image': arrayOfTopics[0], 'background-size': '100%', 'background-repeat':'no-repeat'});
+    $('#g2').css({'background-image': arrayOfTopics[1], 'background-size': '100%', 'background-repeat':'no-repeat'});
+    $('#g3').css({'background-image': arrayOfTopics[2], 'background-size': '100%', 'background-repeat':'no-repeat'});
+    $('#g4').css({'background-image': arrayOfTopics[3], 'background-size': '100%', 'background-repeat':'no-repeat'});
 
-
-
-
-
-
+$('.gal').on('click', function(event) {
+  if($(this).attr('id') == 'g1') {
+    gameTop =  arrayOfAnimals;
+    $('.clusters').css({'visibility': 'visible', 'z-index': '2'});
+    $('.Gallary').css({'visibility': 'hidden', 'z-index': '1'});
+  } else if($(this).attr('id') == 'g2') {
+    gameTop =  arrayOfMario;
+    $('.clusters').css({'visibility': 'visible', 'z-index': '2'});
+    $('.Gallary').css({'visibility': 'hidden', 'z-index': '1'});
+  } else if($(this).attr('id') == 'g3') {
+    $('.clusters').css({'visibility': 'visible', 'z-index': '2'});
+    $('.Gallary').css({'visibility': 'hidden', 'z-index': '1'});
+    gameTop =  arrayOfStar;
+  } else if($(this).attr('id') == 'g4') {
+    $('.clusters').css({'visibility': 'visible', 'z-index': '2'});
+    $('.Gallary').css({'visibility': 'hidden', 'z-index': '1'});
+    gameTop = arrayOfHeroes;
+    }
+  });
+});
