@@ -78,7 +78,7 @@ class Game {
       }
     };
 //it works. tested.
-  revealBoard(arr1, gameTop) {
+  revealBoard(arr1) {
       if(gameTop === '') gameTop = arrayOfAnimals;
       $('.square').each(function(index, el) {
          $(el).css("background", "lightgreen");
@@ -218,18 +218,22 @@ $('.gal').on('click', function(event) {
     gameTop =  arrayOfAnimals;
     $('.clusters').css({'visibility': 'visible', 'z-index': '2'});
     $('.Gallary').css({'visibility': 'hidden', 'z-index': '1'});
+    $('#gName').text('ANIMALS');
   } else if($(this).attr('id') == 'g2') {
     gameTop =  arrayOfMario;
     $('.clusters').css({'visibility': 'visible', 'z-index': '2'});
     $('.Gallary').css({'visibility': 'hidden', 'z-index': '1'});
+    $('#gName').text('MARIO');
   } else if($(this).attr('id') == 'g3') {
+    gameTop =  arrayOfHeroes;
     $('.clusters').css({'visibility': 'visible', 'z-index': '2'});
     $('.Gallary').css({'visibility': 'hidden', 'z-index': '1'});
-    gameTop =  arrayOfStar;
+    $('#gName').text('SUPER HEROES');
   } else if($(this).attr('id') == 'g4') {
+    gameTop = arrayOfStar;
     $('.clusters').css({'visibility': 'visible', 'z-index': '2'});
     $('.Gallary').css({'visibility': 'hidden', 'z-index': '1'});
-    gameTop = arrayOfHeroes;
+    $('#gName').text('STAR WARS');
     }
   });
 });
