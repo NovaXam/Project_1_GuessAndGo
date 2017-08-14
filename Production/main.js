@@ -126,15 +126,15 @@ class Game {
        }
     )}
   };
- gameTimer(proScore) {
+ gameTimer() {
   function timeChecker() {
-      if (proScore < 8 && sec > 0) {
+      if (progressFlag < 8 && sec > 0) {
         $('#level').text(`00 : ${sec}`);
         sec--;
-      } else if (sec < 0 && proScore !== 8) {
+      } else if (sec < 0 && progressFlag != 8) {
         clearInterval(inTimer);
         timerOut = true;
-      } else if(sec > 0 && proScore === 8){
+      } else if(sec > 0 && progressFlag == 8 || stepFlag > 12){
         $('#level').text(`00 : ${sec}`);
         timerOut = true;
         sec;
@@ -156,12 +156,11 @@ class Game {
            if($(cluster).text() == "") {
             if(arrayOfIndex.indexOf(parseInt($(cluster).attr('id'))) > -1) {
 
-              // $('.back').css(`{'background-color':'#EFE15E, 'backface-visibility':'hidden', 'z-index':'2', 'transform':'rotateY(0deg)'}`);
-              // $('.front').css(`{'background-color':'lightgreen', 'backface-visibility':'hidden', 'transform':'rotateY(180deg)'}`);
-              // $('.back').css("background", "lightgreen");
-              // $('.back').css("background-image", gameTop[arrayOfIndex.indexOf(parseInt($(cluster).attr('id')))]);
-              // $('.back').css("background-repeat", 'no-repeat');
-              // $(cluster).css('transform', 'rotateY(180deg');
+              // $('.back').css(`{'background-color':'#EFE15E, 'backface-visibility':'hidden', 'transform':'rotateY(180deg)'}`);
+              // $('.front').css(`{'background-color':'lightgreen', 'backface-visibility':'hidden', 'transform':'rotateY(0deg)', 'z-index':'2'}`);
+              // $('.front').css("background-image", gameTop[arrayOfIndex.indexOf(parseInt($(cluster).attr('id')))]);
+              // $('.front').css("background-repeat", 'no-repeat');
+              // //  $(cluster).css('transform', 'rotateY(180deg');
 
               $(cluster).css('transform', 'rotateY(180deg');
               $(cluster).css("background", "lightgreen");
@@ -174,7 +173,7 @@ class Game {
                   score += 120;
                 } else score += 120-((stepFlag - progressFlag)*10);
             } else {
-              $(cluster).css('transform', 'rotateY(180deg');
+              $(cluster).css('transform', 'rotateY(180deg)');
               $(cluster).css("background", "lightgreen");
               $(cluster).css("background-image", questionMark);
               $(cluster).css("background-size", '100%');

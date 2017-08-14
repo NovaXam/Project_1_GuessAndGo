@@ -147,6 +147,8 @@ section {
   justify-content: center;
   z-index: 1;
   visibility: hidden;
+  transition: 0.6s;
+  transform-style: preserve-3d;
 }
 .gal {
   border: 1px solid black;
