@@ -44,6 +44,32 @@ header {
   font-size: 18px;
   font-style: bold;
 }
+/* piece of code not finished. Should be fixed with the next version */
+.levelMenu .subLevMenu {
+  display: none;
+  position: absolute;
+  border-bottom: 1px solid black;
+  display: inline-flex;
+  z-index: 1;
+  justify-content: space-around;
+  align-items: center;
+  top: 30px;
+  left: 15px;
+  height: 40px;
+  width: 240px;
+  text-align: center;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  background-color: rgba(255,255,255, 0.8);
+  font-size: 20px;
+  font-family: 'Quicksand';
+}
+#lev:hover + .levelMenu{
+  display: none;
+  background-color: rgba(255,255,255, 0.8);
+}
+
 #gName {
   position: relative;
   float: left;

@@ -5,7 +5,6 @@ const arrayOfStar = ['url(graph/sw/craft.png)','url(graph/sw/D2R2.png)','url(gra
 const arrayOfHeroes = ['url(graph/sh/1.png)','url(graph/sh/2.png)','url(graph/sh/3.png)','url(graph/sh/4.png)','url(graph/sh/5.png)','url(graph/sh/6.png)','url(graph/sh/7.png)','url(graph/sh/8.png)'];
 const arrayOfTopics = ['url(graph/animals/main.png)','url(graph/mario/main.png)','url(graph/sh/main.png)','url(graph/sw/main.png)'];
 var isStartOrReset = false;
-const questionMark = 'url(graph/questionMark.png)';
 const winnerCup = 'url(graph/winnerCup.png)';
 const looserCup = 'url(graph/looserCup.png)';
 let arrayOfIndex = [];
@@ -87,7 +86,7 @@ class Game {
     $('.square').on('click', function(event) {
       let cluster = this;
       if(stepFlag < 12 && progressFlag < 8) {
-           if($(cluster).text() == "") {
+          if($(cluster).text() == "") {
             if(arrayOfIndex.indexOf(parseInt($(cluster).attr('id'))) > -1) {
 
               //Animation effect. Still not working. Fix it later before to start to work under extended version.
@@ -97,10 +96,7 @@ class Game {
               // $('.front').css("background-repeat", 'no-repeat');
               // //  $(cluster).css('transform', 'rotateY(180deg');
 
-              $(cluster).css('transform', 'rotateY(180deg');
-              $(cluster).css("background", "lightgreen");
-              $(cluster).css("background-image", gameTop[arrayOfIndex.indexOf(parseInt($(cluster).attr('id')))]);
-              $(cluster).css("background-repeat", 'no-repeat');
+              $(cluster).css({'transform': 'rotateY(180deg', 'background': 'lightgreen', 'background-image': gameTop[arrayOfIndex.indexOf(parseInt($(cluster).attr('id')))], 'background-repeat': 'no-repeat'});
               $(cluster).text('1');
               stepFlag++;
               progressFlag++;
@@ -108,11 +104,7 @@ class Game {
                   score += 120;
                 } else score += 120-((stepFlag - progressFlag)*10);
             } else {
-              $(cluster).css('transform', 'rotateY(180deg)');
-              $(cluster).css("background", "lightgreen");
-              $(cluster).css("background-image", questionMark);
-              $(cluster).css("background-size", '100%');
-              $(cluster).css("background-repeat", 'no-repeat');
+              $(cluster).css({'transform': 'rotateY(180deg)', 'background': 'rgb(255,41,33)', 'background-size': '100%', 'background-repeat': 'no-repeat'});
               $(cluster).text('0');
               stepFlag++;
             }
@@ -126,21 +118,14 @@ class Game {
               $('.Winner_Looser').children('span').remove();
               $('.wl').css('display', 'inline-block');
               $('#stat').text(`steps ${stepFlag} : progress ${progressFlag} score ${score}`);
-              $('#cup').css('background-image', looserCup);
-              $('#cup').css("background-size", '60%');
-              $('#cup').css("background-repeat", 'no-repeat');
-              $('#cup').css("background-position", 'center');
+              $('#cup').css({'background-size': '60%', 'background-image': looserCup, 'background-repeat': 'no-repeat', 'background-position': 'center'});
               $('#text').text('TRY HARDER');
-
       } else if(stepFlag <= 12 && progressFlag == 8) {
               $('.Winner_Looser').css('visibility', 'visible');
               $('.Winner_Looser').children('span').remove();
               $('.wl').css('display', 'inline-block');
               $('#stat').text(`steps ${stepFlag} : progress ${progressFlag} score ${score}`);
-              $('#cup').css('background-image', winnerCup);
-              $('#cup').css("background-size", '65%');
-              $('#cup').css("background-repeat", 'no-repeat');
-              $('#cup').css("background-position", 'center');
+              $('#cup').css({'background-size': '65%', 'background-image': winnerCup, 'background-repeat': 'no-repeat', 'background-position': 'center'});
               $('#text').text('WINNER');
               $('#text').css("font-size", '120px');
             }
@@ -169,14 +154,26 @@ $('button').on('click', (event) => {
   }
 });
 
-//listeners for gallary button. Open a gallary and init playground;
-$('#gall').on('click', (event) => {
-   if(event.target.textContent == 'Gallary') {
+//2 listeners for gallary button. Open a gallary and init playground by click;
+$('.but').click((event) => {
+   if(event.target.text == 'Gallary') {
     openGallary('#start', '.gal');
-
   $('.gal').on('click', function(event) {
     initGallary(this);
      });
+  // } else if(event.target.text == 'Level') {
+  //     $('<div>').attr('id', 'levelMenu').appendTo($('#lev'));
+  //     for (let i = 0; i < 3; i++) {
+  //       console.log(i);
+  //       $('<div>').attr('id', 'lM' + (i + 1)).appendTo($('#levelMenu'));
+  //       $('#lM' + (i + 1)).text('level ' + (i + 1));
+  //       if(i % 2 !== 0) $('#lM' + (i + 1)).css({'width':'85px', 'border-right':'1px solid black', 'border-left':'1px solid black'});
+
+  //     }
+  // } else if(event.target.text == 'Instruction') {
+
+  // } else if(event.target.text == 'Login') {
+
   }
 });
 
@@ -185,43 +182,32 @@ function openGallary(el, elem) {
   if($(el).text() == 'RESET') {
     alert('please, reset the game, first');
   } else {
-  $('.clusters').css({'visibility': 'hidden', 'z-index': '1'});
-  $('.Gallary').css({'visibility': 'visible', 'z-index': '2'});
+  $('.clusters').css({'visibility':'hidden', 'z-index':'1'});
+  $('.Gallary').css({'visibility':'visible', 'z-index':'2'});
     resetGallary(elem);
   }
 };
 
 function resetGallary(elemo) {
   $(elemo).each((ind) => {
-    $('#g' + (ind + 1)).css({'background': 'lightgreen', 'background-image': arrayOfTopics[ind], 'background-size': '100%', 'background-repeat':'no-repeat'});
+    $('#g' + (ind + 1)).css({'background':'lightgreen', 'background-image':arrayOfTopics[ind], 'background-size':'100%', 'background-repeat':'no-repeat'});
     });
   };
 
 function initGallary(eve) {
+  $('.clusters').css({'visibility':'visible', 'z-index':'2'});
+    $('.Gallary').css({'visibility':'hidden', 'z-index':'1'});
   if($(eve).attr('id') == 'g1') {
     gameTop =  arrayOfAnimals;
-    $('.clusters').css({'visibility': 'visible', 'z-index': '2'});
-    $('.Gallary').css({'visibility': 'hidden', 'z-index': '1'});
     $('#gName').text('ANIMALS');
   } else if($(eve).attr('id') == 'g2') {
     gameTop =  arrayOfMario;
-    $('.clusters').css({'visibility': 'visible', 'z-index': '2'});
-    $('.Gallary').css({'visibility': 'hidden', 'z-index': '1'});
     $('#gName').text('MARIO');
   } else if($(eve).attr('id') == 'g3') {
     gameTop =  arrayOfHeroes;
-    $('.clusters').css({'visibility': 'visible', 'z-index': '2'});
-    $('.Gallary').css({'visibility': 'hidden', 'z-index': '1'});
     $('#gName').text('SUPER HEROES');
   } else if($(eve).attr('id') == 'g4') {
     gameTop = arrayOfStar;
-    $('.clusters').css({'visibility': 'visible', 'z-index': '2'});
-    $('.Gallary').css({'visibility': 'hidden', 'z-index': '1'});
     $('#gName').text('STAR WARS');
     }
 };
-
-
-
-
-
