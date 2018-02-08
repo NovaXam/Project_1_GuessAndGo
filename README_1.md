@@ -33,7 +33,7 @@ ___
 
 ___
 
-##Mockups
+## Mockups
 
 ![alt text](https://github.com/NovaXam/Project_1_GuessAndGo/blob/master/Planning/Board.pdf "Grid")
 
