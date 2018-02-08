@@ -26,18 +26,18 @@ ___
     
 ### Flow charts
 
-![alt text] (https://github.com/NovaXam/Project_1_GuessAndGo/blob/master/Planning/Memory_game_flowChart.png "chart1")
+![alt text](https://github.com/NovaXam/Project_1_GuessAndGo/blob/master/Planning/Memory_game_flowChart.png "chart1")
 
-![alt text] (https://github.com/NovaXam/Project_1_GuessAndGo/blob/master/Planning/Memory_game.png "chart2")
+![alt text](https://github.com/NovaXam/Project_1_GuessAndGo/blob/master/Planning/Memory_game.png "chart2")
 
 
 ___
 
 ##Mockups
 
-![alt text] (https://github.com/NovaXam/Project_1_GuessAndGo/blob/master/Planning/Board.pdf "Grid")
+![alt text](https://github.com/NovaXam/Project_1_GuessAndGo/blob/master/Planning/Board.pdf "Grid")
 
-![alt text] (https://github.com/NovaXam/Project_1_GuessAndGo/blob/master/Planning/Board1.pdf "Square")
+![alt text](https://github.com/NovaXam/Project_1_GuessAndGo/blob/master/Planning/Board1.pdf "Square")
 
 ___
 
