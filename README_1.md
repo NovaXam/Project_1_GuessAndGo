@@ -37,28 +37,29 @@ ___
 
 ![alt text](https://github.com/NovaXam/Project_1_GuessAndGo/blob/master/Planning/Board.pdf "Grid")
 
-![alt text](https://github.com/NovaXam/Project_1_GuessAndGo/blob/master/Planning/Board1.pdf "Square")
+![alt text](https://github.com/NovaXam/Project_1_GuessAndGo/blob/master/Planning/Board1.pdf "Squar")
 
 ___
 
-#PROJECT PLAN (use SDLC model)
-##STAGE 1 
+# PROJECT PLAN (use SDLC model)
+
+## STAGE 1 
 Make an user story:
 - logic of the game 
 - design
 - functionality
 - performance
 
-##STAGE 2
+## STAGE 2
 Adjust a scale of the game's development:
 - prioritize design and functionality 
 - make a time scope with a list of features to realize
 
-##STAGE 3
+## STAGE 3
 - Make a mockup of all pages and particular elements of design
 - Make a pseudo-code
 
-##STAGE 4
+## STAGE 4
 - Make a design of all elements according to the previously designed scope.
 - Make a functionality for a main logic of the game: start, stop. 
 
